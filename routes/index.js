@@ -42,7 +42,7 @@ router.post('/hook/:secret', function (req, res, next) {
     return next(e);
   }
 
-  spawn('npm', ['run', 'restart']);
+  spawn('npm', ['run', 'production']);
 });
 
 module.exports = router;

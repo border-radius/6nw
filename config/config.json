@@ -14,10 +14,10 @@
     "dialect": "postgresql"
   },
   "production": {
-    "username": "root",
+    "username": "autism",
     "password": null,
-    "database": "database_production",
+    "database": "autism-prod",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgresql"
   }
 }

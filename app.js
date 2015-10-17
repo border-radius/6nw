@@ -54,5 +54,12 @@ app.use(function(err, req, res, next) {
     });
 });
 
+if (process.env.NODE_ENV === 'production') {
+    sync.sync({}, function (e) {
+        if (e) {
+            console.error(e);
+        }
+    });
+}
 
 module.exports = app;
