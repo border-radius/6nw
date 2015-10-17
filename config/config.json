@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "root",
+    "username": "autism",
     "password": null,
-    "database": "database_development",
+    "database": "autism-dev",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgresql"
   },
   "test": {
     "username": "autism",

@@ -1,12 +1,28 @@
 var express = require('express');
-var router = express.Router();
+var models = require('../models');
 
+var router = express.Router();
 var launched = new Date();
 
 router.get('/', function (req, res, next) {
-  res.json({
-    uptime: new Date() - launched
-  });
+  models.message.findAll({
+    attributes: [
+      'type',
+      [ models.Sequelize.fn('count', '*'), 'count' ]
+    ],
+    group: 'type'
+  }).then(function (result) {
+    var json = {
+      uptime: new Date() - launched,
+      total: {}
+    };
+
+    result.forEach(function (item) {
+      json.total[item.dataValues.type] = item.dataValues.count;
+    })
+
+    res.json(json);
+  }).catch(next);
 });
 
 module.exports = router;
