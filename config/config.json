@@ -7,11 +7,11 @@
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
+    "username": "autism",
     "password": null,
-    "database": "database_test",
+    "database": "autism",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgresql"
   },
   "production": {
     "username": "root",
