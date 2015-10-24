@@ -68,7 +68,10 @@ router.post('/hook/:secret', function (req, res, next) {
     return next(e);
   }
 
-  spawn('npm', ['run', 'production']);
+  spawn('npm', ['run', 'production'], {
+    detached: true
+  });
+
   res.send();
 });
 
