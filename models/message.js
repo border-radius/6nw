@@ -14,6 +14,7 @@ module.exports = function (sequelize, dataTypes) {
       type: dataTypes.STRING,
       allowNull: false
     },
+    parent: dataTypes.STRING,
     user: {
       type: dataTypes.STRING,
       allowNull: false
@@ -23,7 +24,14 @@ module.exports = function (sequelize, dataTypes) {
 
   var options = {
     timestamps: true,
-    paranoid: true
+    paranoid: true,
+    classMethods: {
+      associate: function (db) {
+        db.message.belongsTo(db.message, {
+          foreignKey: 'parent'
+        });
+      }
+    }
   };
 
   return sequelize.define('message', properties, options);

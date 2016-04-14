@@ -18,6 +18,10 @@ exports.schema = {
       type: 'string',
       format: 'bnwpostid'
     },
+    parent: {
+      type: 'string',
+      format: 'bnwid'
+    },
     user: {
       required: true,
       type: 'string'
