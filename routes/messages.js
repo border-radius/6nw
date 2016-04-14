@@ -13,9 +13,11 @@ exports.get = function (req, res, next) {
 
   models.sequelize.transaction(function (transaction) {
     return models.message.findAndCountAll({
-      where: req.query.where || {},
-      sort: [[req.query.orderBy || 'updatedAt', req.query.orderDirection || 'desc']],
-      limit: parseInt(req.query.limit),
+      where: where,
+      sort: [[orderBy, orderDirection]],
+      limit: limit,
+      offset: offset,
+      include: [{ all: true }],
       transaction: transaction
     }).then(function (result) {
       var posts = result.rows.filter(function (message) {

@@ -28,7 +28,8 @@ module.exports = function (sequelize, dataTypes) {
     classMethods: {
       associate: function (db) {
         db.message.belongsTo(db.message, {
-          foreignKey: 'parent'
+          foreignKey: 'parent',
+          as: 'replyto'
         });
       }
     }
