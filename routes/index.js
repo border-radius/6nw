@@ -3,6 +3,7 @@ var path = require('path');
 var spawn = require('child_process').spawn;
 var express = require('express');
 var models = require('../models');
+var messages = require('./messages');
 
 var router = express.Router();
 var launched = new Date();
@@ -52,5 +53,7 @@ router.get('/', function (req, res, next) {
     res.json(json);
   }).catch(next);
 });
+
+router.get('/messages', messages.get);
 
 module.exports = router;

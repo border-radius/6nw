@@ -35,7 +35,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 sequelize.sync({
-  force: env === 'test'
+  force: process.env.FORCE_SYNC
 }).then(function () {
   db.$ready = true;
 });

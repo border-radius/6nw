@@ -103,7 +103,7 @@ describe('Parser', function () {
   });
 
   it('should get list of messages created after #5D4A6F', function (done) {
-    this.timeout(10000);
+    this.timeout(30000);
     parser.after('5D4A6F', function (e, ids) {
       if (e) {
         return done(e);
