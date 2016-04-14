@@ -15,7 +15,39 @@ exports.get = function (req, res, next) {
     return models.message.findAndCountAll({
       where: req.query.where || {},
       sort: [[req.query.orderBy || 'updatedAt', req.query.orderDirection || 'desc']],
-      limit: parseInt(req.query.limit) 
+      limit: parseInt(req.query.limit),
+      transaction: transaction
+    }).then(function (result) {
+      var posts = result.rows.filter(function (message) {
+        return message.type === 'post';
+      }).map(function (message) {
+        return message.id;
+      });
+      
+      return models.message.findAll({
+        where: {
+          thread: {
+            $in: posts
+          }
+        },
+        attributes: [
+          'thread',
+          [ models.Sequelize.fn('count', '*'), 'replies' ]
+        ],
+        group: 'thread'
+      }).then(function (count) {
+        result.rows = result.rows.map(function (message) {
+          count.forEach(function (thread) {
+            if (thread.thread === message.id) {
+              message.dataValues.replies = parseInt(thread.dataValues.replies) || 0;
+            }
+          });
+
+          return message;
+        });
+
+        return result;
+      });
     });
   }).then(function (result) {
     result.where = where;

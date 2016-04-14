@@ -24,6 +24,12 @@ describe('API', function () {
       assert.equal(messages.offset, 0, 'Messages.offset should be 0');
       assert.equal(typeof messages.count, 'number', 'Messages.count should be a number');
       assert.equal(messages.rows.length, 10, 'Length of messages should be equal to limit');
+
+      messages.rows.forEach(function (message) {
+        if (message.type === 'post') {
+          assert.equal(typeof message.replies, 'number', 'Post should have replies count');
+        }
+      });
     })
     .end(done);
   });
