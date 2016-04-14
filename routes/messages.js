@@ -26,9 +26,8 @@ exports.get = function (req, res, next) {
       
       return models.message.findAll({
         where: {
-          thread: {
-            $in: posts
-          }
+          type: { $not: 'post' },
+          thread: { $in: posts }
         },
         attributes: [
           'thread',
