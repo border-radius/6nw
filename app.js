@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var listener = require('./lib/listener');
 var routes = require('./routes');
 var sync = require('./lib/sync');
 
@@ -55,11 +56,7 @@ app.use(function(err, req, res, next) {
 });
 
 if (process.env.NODE_ENV === 'production') {
-    sync.sync({}, function (e) {
-        if (e) {
-            console.error(e);
-        }
-    });
+    sync.sync({}, listener);
 }
 
 module.exports = app;
