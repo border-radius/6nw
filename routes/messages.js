@@ -23,6 +23,10 @@ exports.get = function (req, res, next) {
       }).map(function (message) {
         return message.id;
       });
+
+      if (!posts.length) {
+        return result;
+      }
       
       return models.message.findAll({
         where: {
