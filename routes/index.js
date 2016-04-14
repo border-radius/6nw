@@ -53,26 +53,4 @@ router.get('/', function (req, res, next) {
   }).catch(next);
 });
 
-try {
-  var secret = JSON.parse(fs.readFileSync('/etc/secret.json', {
-    encoding: 'utf8'
-  }));
-} catch (e) {
-  console.error(e);
-}
-
-router.post('/hook/:secret', function (req, res, next) {
-  if (!secret || !secret.secret || req.params.secret !== secret.secret) {
-    var e = new Error('Forbidden');
-    e.status = 403;
-    return next(e);
-  }
-
-  spawn('npm', ['run', 'production'], {
-    detached: true
-  });
-
-  res.send();
-});
-
 module.exports = router;
